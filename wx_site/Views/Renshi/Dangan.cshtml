@@ -1,0 +1,72 @@
+﻿@model wx_site.Models.Dangan
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>档案信息</title>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <script type="text/javascript" src="~/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="~/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#example-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">导航栏</a>
+                </div>
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a class="glyphicon glyphicon-user icon" href="@Url.Action("dangan")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 职员档案</a></li>
+                        <li class="active"><a class="glyphicon glyphicon-time icon" href="@Url.Action("kaoqin")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 考勤信息</a></li>
+                        <li class="active"><a class="glyphicon glyphicon-yen icon" href="@Url.Action("login")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 工资信息</a></li>
+                        <li class="active"><a class="glyphicon glyphicon-log-out icon" href="@Url.Action("qingjia")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 自助请假</a></li>
+                        <li class="active"><a class="glyphicon glyphicon-lock icon" href="@Url.Action("change_pwd")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 修改密码</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <hr />
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title">职员档案信息</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td class="col-md-3 col-xs-4">职员工号</td>
+                            <td class="col-md-9 col-xs-8">@Model.Emp_no</td>
+                        </tr>
+                        <tr>
+                            <td>职员姓名</td>
+                            <td>@Model.Emp_nm</td>
+                        </tr>
+                        <tr>
+                            <td>入职日期</td>
+                            <td>@Model.Entr_dt</td>
+                        </tr>
+                        <tr>
+                            <td>所在部门</td>
+                            <td>@Model.Dept_nm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

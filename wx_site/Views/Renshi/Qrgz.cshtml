@@ -1,0 +1,139 @@
+﻿@using wx_site.Models
+
+@{
+                /**/
+
+                Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>工资确认</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <hr />
+        <div class="col-md-12">
+            <div class="panel-group" id="accordion">
+                <!--津贴信息-->
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseOne">
+                                津贴项目
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in (List<Gongzi_Zhifu>)ViewData["zhifu"])
+                                {
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">@item.Allow_nm1</td>
+                                        <td class="col-md-6 col-xs-6">@item.Allow</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--扣除项目-->
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseTwo">
+                                扣除项目
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in (List<Gongzi_Kouchu>)ViewData["kouchu"])
+                                {
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">@item.Allow_nm1</td>
+                                        <td class="col-md-6 col-xs-6">@item.Sub_amt</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--合计金额-->
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseThree">
+                                合计金额
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in (List<Gongzi_Heji>)ViewData["heji"])
+                                {
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">支付合计</td>
+                                        <td class="col-md-6 col-xs-6">@item.PROV_TOT_AMT</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">扣除合计</td>
+                                        <td class="col-md-6 col-xs-6">@item.SUB_TOT_AMT</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">实付金额</td>
+                                        <td class="col-md-6 col-xs-6">@item.REAL_PROV_AMT</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form id="form1" action="@Url.Action("qrgz")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]" method="post">
+            <div class="col-md-9 col-xs-8">
+                确认前请仔细核对工资信息是否准确无误，一旦提交后则无法再进行调整。如有异议可以不确认，并找相关部门进行咨询。
+            </div>
+            <div class="col-md-3 col-xs-4">
+                <button type="submit" class="btn btn-info col-md-12 col-xs-12" value="y" name="action">确认无误</button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+		    $(function () {
+		        $('#collapseFour').collapse({
+		            toggle: false
+		        })
+		    });
+        $(function () {
+            $('#collapseTwo').collapse('show')
+		    });
+        $(function () {
+            $('#collapseThree').collapse('show')
+		    });
+        $(function () {
+            $('#collapseOne').collapse('show')
+		    });
+    </script>
+</body>
+</html>

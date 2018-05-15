@@ -1,0 +1,111 @@
+﻿@model wx_site.Models.HEX001TB
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>请假审核</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <hr />
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h4 class="panel-title">审核前请仔细阅读职员的请假申请</h4>
+            </div>
+            <form id="form1" action="@Url.Action("Check")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]" method="post">
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-2 col-xs-3 text-right">职员工号</td>
+                                <td class="text-left">@Model.emp_no</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">职员姓名</td>
+                                <td class="text-left">@Model.emp_nm</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">所在部门</td>
+                                <td class="text-left">@Model.dept_nm</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">请假日期</td>
+                                <td class="text-left">@Model.ex_date</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">请假类别</td>
+                                <td class="text-left">@Model.dilig_nm</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">开始时间</td>
+                                <td class="text-left">@Model.ex_btime</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">结束时间</td>
+                                <td class="text-left">@Model.ex_etime</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">合计小时</td>
+                                <td class="text-left">@Model.ex_hh</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right ">请假原因</td>
+                                <td class="text-left">@Model.ex_remark</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right">审核状态</td>
+                                <td class="text-left">@Model.ck_flg_nm</td>
+                            </tr>
+                            <tr>
+                                <td class="text-right ">备注信息</td>
+                                <td class="text-left">
+                                    @if (Model.ck_flg == "N")
+                                    {
+                                        <input type="text" class="form-control" name="ck_remark"/>
+
+                                    }
+                                    else
+                                    {
+                                        @Model.ck_remark
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="text-right text-danger" >注意事项</td>
+                                <td class="text-left text-danger">
+                                    每个请假申请只能审核一次，无论同意还是拒绝，一旦提交后，则无法再进行修改，所以请谨慎选择。如果拒绝的话，最好请填写备注信息。
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @if (Model.ck_flg == "N")
+                    {
+                        <button type="submit" class="btn btn-info col-md-3 col-xs-3" name="check" value="Y">同 意</button>
+                        <div class="col-md-6 col-xs-6"></div>
+                        <button type="submit" class="btn btn-info col-md-3 col-xs-3" name="check" value="R">拒 绝</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-info col-md-3 col-xs-3" name="check" value="Y" disabled="disabled">同 意</button>
+                        <div class="col-md-6 col-xs-6"></div>
+                        <button type="submit" class="btn btn-info col-md-3 col-xs-3" name="check" value="R" disabled="disabled">拒 绝</button>
+                    }
+
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

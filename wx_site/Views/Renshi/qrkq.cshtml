@@ -1,0 +1,184 @@
+﻿@using wx_site.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>考勤确认</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <hr />
+        <div class="col-md-12">
+            <div class="panel-group" id="accordion">
+                <!--加班信息-->
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseOne">
+                                加班信息
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-condensed table-striped">
+                                <thead>
+                                    <tr class="danger">
+                                        <th class="col-md-2 col-xs-2">日期</th>
+                                        <th class="col-md-1 col-xs-1">星期</th>
+                                        <th class="col-md-2 col-xs-2">考勤</th>
+                                        <th class="col-md-2 col-xs-2">班次</th>
+                                        <th class="col-md-2 col-xs-2">上班</th>
+                                        <th class="col-md-2 col-xs-2">下班</th>
+                                        <th class="col-md-1 col-xs-1">小时</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (List<Kaoqin_Jiaban>)ViewData["jiaban"])
+                                {
+                                    <tr style="font-size:12px">
+                                        <td>@item.Rt_date</td>
+                                        <td>@item.Wd_day</td>
+                                        <td>@item.Dilig_nm</td>
+                                        <td>@item.Fq_name</td>
+                                        <td>@item.Rt_btime</td>
+                                        <td>@item.Rt_etime</td>
+                                        <td>@item.Rt_hh</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--请假信息-->
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseTwo">
+                                请假信息
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-condensed table-striped">
+                                <thead>
+                                    <tr class="success">
+                                        <th class="col-md-2 col-xs-2">日期</th>
+                                        <th class="col-md-1 col-xs-1">星期</th>
+                                        <th class="col-md-2 col-xs-2">假别</th>
+                                        <th class="col-md-2 col-xs-2">班次</th>
+                                        <th class="col-md-2 col-xs-2">开始时间</th>
+                                        <th class="col-md-2 col-xs-2">结束时间</th>
+                                        <th class="col-md-1 col-xs-1">小时</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (List<Kaoqin_Qingjia>)ViewData["qingjia"])
+                                {
+                                    <tr style="font-size:12px">
+                                        <td>@item.Ex_date</td>
+                                        <td>@item.Wd_day</td>
+                                        <td>@item.Dilig_nm</td>
+                                        <td>@item.Fq_name</td>
+                                        <td>@item.Ex_btime</td>
+                                        <td>@item.Ex_etime</td>
+                                        <td>@item.Ex_hh</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--异常出勤-->
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseThree">
+                                异常出勤
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-condensed table-striped">
+                                <thead>
+                                    <tr class="warning">
+                                        <th class="col-md-2 col-xs-2">日期</th>
+                                        <th class="col-md-1 col-xs-1">星期</th>
+                                        <th class="col-md-2 col-xs-2">考勤</th>
+                                        <th class="col-md-2 col-xs-2">班次</th>
+                                        <th class="col-md-2 col-xs-2">上班</th>
+                                        <th class="col-md-2 col-xs-2">下班</th>
+                                        <th class="col-md-1 col-xs-1">小时</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in (List<Kaoqin_Yichang>)ViewData["yichang"])
+                                {
+                                    <tr style="font-size:12px">
+                                        <td>@item.Rt_date</td>
+                                        <td>@item.Wd_day</td>
+                                        <td>@item.Dilig_nm</td>
+                                        <td>@item.Fq_name</td>
+                                        <td>@item.Rt_btime</td>
+                                        <td>@item.Rt_etime</td>
+                                        <td>@item.Rt_hh</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form id="form1" action="@Url.Action("qrkq")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]" method="post">
+            <div class="col-md-9 col-xs-8">
+                确认前请仔细核对考勤信息是否准确无误，一旦提交后则无法再进行调整。如有异议可以不确认，并找相关部门进行咨询。
+            </div>
+            <div class="col-md-3 col-xs-4">
+                <button type="submit" class="btn btn-info col-md-12 col-xs-12" value="y" name="action">确认无误</button>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+		    $(function () {
+		        $('#collapseFour').collapse({
+		            toggle: false
+		        })
+		    });
+        $(function () {
+            $('#collapseTwo').collapse('show')
+		    });
+        $(function () {
+            $('#collapseThree').collapse('show')
+		    });
+        $(function () {
+            $('#collapseOne').collapse('show')
+		    });
+    </script>
+    <script type="text/javascript">
+            $.ready(
+        document.getElementById('combox_year').value = '<%=str_year%>',
+        document.getElementById('combox_month').value = '<%=str_month%>'
+            );
+    </script>
+
+</body>
+</html>

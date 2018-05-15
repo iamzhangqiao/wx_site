@@ -1,0 +1,185 @@
+﻿@using wx_site.Models
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>工资信息</title>
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <script type="text/javascript" src="../../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../../js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#example-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">导航栏</a>
+                </div>
+                <div class="collapse navbar-collapse" id="example-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a class="glyphicon glyphicon-user icon" href="@Url.Action("dangan")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 职员档案</a></li>
+                        <li class="active"><a class="glyphicon glyphicon-time icon" href="@Url.Action("kaoqin")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 考勤信息</a></li>
+                        <li class="active"><a class="glyphicon glyphicon-yen icon" href="@Url.Action("login")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 工资信息</a></li>
+                        <li class="active"><a class="glyphicon glyphicon-log-out icon" href="@Url.Action("qingjia")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 自助请假</a></li>
+                        <li class="active"><a class="glyphicon glyphicon-lock icon" href="@Url.Action("change_pwd")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]"> 修改密码</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <hr />
+        <form id="form1" action="@Url.Action("Gongzi")@HttpUtility.UrlDecode("?id=")@Request.QueryString["id"]" method="post">
+            <div class="col-md-3 col-xs-4">
+                <span>
+                    <select class="form-control" name="combox_year">
+                        <option value="@System.DateTime.Now.AddYears(0).ToString("yyyy")" selected="selected">请选择年份</option>
+                        <option value="@System.DateTime.Now.AddYears(0).ToString("yyyy")">@System.DateTime.Now.AddYears(0).ToString("yyyy")年</option>
+                        <option value="@System.DateTime.Now.AddYears(-1).ToString("yyyy")">@System.DateTime.Now.AddYears(-1).ToString("yyyy")年</option>
+                    </select>
+                </span>
+            </div>
+            <div class="col-md-3 col-xs-4">
+                <select class="form-control" name="combox_month">
+                    <option value="@System.DateTime.Now.AddMonths(0).ToString("MM")" selected="selected">请选择月份</option>
+                    <option value="01">1月</option>
+                    <option value="02">2月</option>
+                    <option value="03">3月</option>
+                    <option value="04">4月</option>
+                    <option value="05">5月</option>
+                    <option value="06">6月</option>
+                    <option value="07">7月</option>
+                    <option value="08">8月</option>
+                    <option value="09">9月</option>
+                    <option value="10">10月</option>
+                    <option value="11">11月</option>
+                    <option value="12">12月</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-info col-md-3 col-xs-3">查 询</button>
+            </div>
+        </form>
+        <br />
+        <br />
+        <div class="col-md-12">
+            <div class="panel-group" id="accordion">
+                <!--津贴信息-->
+                <div class="panel panel-danger">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseOne">
+                                津贴项目
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in (List<Gongzi_Zhifu>)ViewData["zhifu"])
+                                {
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">@item.Allow_nm1</td>
+                                        <td class="col-md-6 col-xs-6">@item.Allow</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--扣除项目-->
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseTwo">
+                                扣除项目
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in (List<Gongzi_Kouchu>)ViewData["kouchu"])
+                                {
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">@item.Allow_nm1</td>
+                                        <td class="col-md-6 col-xs-6">@item.Sub_amt</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--合计金额-->
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                               href="#collapseThree">
+                                合计金额
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    @foreach (var item in (List<Gongzi_Heji>)ViewData["heji"])
+                                {
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">支付合计</td>
+                                        <td class="col-md-6 col-xs-6">@item.PROV_TOT_AMT</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">扣除合计</td>
+                                        <td class="col-md-6 col-xs-6">@item.SUB_TOT_AMT</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-md-6 col-xs-6">实付金额</td>
+                                        <td class="col-md-6 col-xs-6">@item.REAL_PROV_AMT</td>
+                                    </tr>
+                            }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+		    $(function () {
+		        $('#collapseFour').collapse({
+		            toggle: false
+		        })
+		    });
+        $(function () {
+            $('#collapseTwo').collapse('show')
+		    });
+        $(function () {
+            $('#collapseThree').collapse('show')
+		    });
+        $(function () {
+            $('#collapseOne').collapse('show')
+		    });
+    </script>
+</body>
+</html>
